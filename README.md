@@ -1,1 +1,1 @@
-# short_links__go
+Smth
