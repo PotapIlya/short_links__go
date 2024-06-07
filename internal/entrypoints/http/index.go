@@ -5,20 +5,14 @@ import (
 	"net/http"
 )
 
-// @title Swagger Example API
-// @version 1.0
-// @description This is a sample server Petstore server.
-// @termsOfService http://swagger.io/terms/
-
-// @contact.name API Support
-// @contact.url http://www.swagger.io/support
-// @contact.email support@swagger.io
-
-// @license.name Apache 2.0
-// @license.url http://www.apache.org/licenses/LICENSE-2.0.html
-
-// @host petstore.swagger.io
-// @BasePath /v2
+// RootHandler - Returns all the available APIs
+// @Summary This API can be used as health check for this application.
+// @Description Tells if the chi-swagger APIs are working or not.
+// @Tags chi-swagger
+// @Accept  json
+// @Produce  json
+// @Success 200 {string} response "api response"
+// @Router / [get]
 func Index(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("welcome123"))
 }

@@ -4,8 +4,9 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	httpSwagger "github.com/swaggo/http-swagger"
-	_ "go-http/docs"
+	//_ "go-http/docs"
 	entrypoint "go-http/internal/entrypoints/http"
+	"log"
 	"net/http"
 )
 
@@ -24,20 +25,6 @@ func (r *Router) LoadMiddleware() {
 	r.Ctx.Use(middleware.URLFormat)
 }
 
-// @title Swagger Example API
-// @version 1.0
-// @description This is a sample server Petstore server.
-// @termsOfService http://swagger.io/terms/
-
-// @contact.name API Support
-// @contact.url http://www.swagger.io/support
-// @contact.email support@swagger.io
-
-// @license.name Apache 2.0
-// @license.url http://www.apache.org/licenses/LICENSE-2.0.html
-
-// @host petstore.swagger.io
-// @BasePath /v2
 func (r *Router) LoadRouters() {
 	routes := chi.NewRouter()
 
@@ -48,14 +35,13 @@ func (r *Router) LoadRouters() {
 		rout.Get("/", entrypoint.Test)
 	})
 
-	//r.Ctx.Mount("/swagger", httpSwagger.WrapHandler)
 	r.Ctx.Mount("/api", routes)
 
-	r.Ctx.Get("/swagger/*", httpSwagger.Handler(
-		httpSwagger.URL("http://localhost:3000/swagger/doc.json"), //The url pointing to API definition
-	))
+	r.Ctx.Mount("/swagger", httpSwagger.WrapHandler)
 }
 
 func (r *Router) ListenServer() {
-	http.ListenAndServe(":3000", r.Ctx)
+	if err := http.ListenAndServe(":3000", r.Ctx); err != nil {
+		log.Printf("Failed to launch api server:%+v\n", err)
+	}
 }

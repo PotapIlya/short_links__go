@@ -8,4 +8,5 @@ build:
 #	go build ./cmd
 
 swagger:
-	swag init -g ./cmd/main.go
+	swag init --dir ./cmd -g main.go
+
