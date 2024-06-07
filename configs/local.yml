@@ -1,0 +1,5 @@
+env: 'dev' # dev prod
+
+http_server:
+  host: 'localhost'
+  port: 3000
